@@ -54,4 +54,3 @@ VK ID также обеспечивает безопасную работу с �
 ```bash
 git clone https://github.com/Hoher2000/vk_auth_API_golang.git
 cd vk_auth_API_golang
-make
