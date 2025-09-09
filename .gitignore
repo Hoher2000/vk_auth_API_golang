@@ -1,0 +1,61 @@
+# Byte-compiled Go files
+*.6
+*.6a
+*.6b
+*.6c
+*.6d
+*.6f
+*.6g
+*.6h
+*.6i
+*.6j
+*.6k
+*.6l
+*.6m
+*.6n
+*.6o
+*.6p
+*.6r
+*.6s
+*.6t
+*.6u
+*.6v
+*.6w
+*.6x
+*.6y
+*.6z
+
+# Cgo files
+*.cgo1.go
+*.cgo2.go
+
+# Compiled files
+*.class
+*.dll
+*.exe
+*.so
+
+# IDE settings
+.idea/
+.vscode/
+
+# Build artifacts
+your_app_name # Имя вашего исполняемого файла, если он есть
+
+# Temporary files
+*.tmp
+
+# User-specific files
+.DS_Store
+Thumbs.db
+
+# Configuration files (often sensitive, don't commit to public repos)
+config.yaml # Если вы не хотите коммитить, но хотите игнорировать
+# .env # Никогда не коммитьте .env файлы!
+
+# Dependencies
+vendor/
+
+config.yaml
+.air.toml
+/tmp

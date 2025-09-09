@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Информация о доступе и пользователе VK</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 8px;
+            margin-top: 25px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #1abc9c;
+        }
+        .section {
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+        }
+        .section-title {
+            font-weight: bold;
+            color: #2980b9;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        .data-item {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        .data-item strong {
+            display: inline-block;
+            width: 150px; /* Фиксированная ширина для ключей */
+            margin-right: 10px;
+            color: #555;
+        }
+        .data-item span {
+            color: #007bff; /* Цвет для значений */
+            word-break: break-all; /* Разрывать длинные строки */
+        }
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+            border: 2px solid #ccc;
+        }
+        .user-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .user-name {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .user-id {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            margin-left: 10px;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .token-value {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            word-break: break-all;
+        }
+        .expires {
+            color: #e74c3c; /* Красный цвет для истекающего срока */
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Информация VK</h1>
+
+        {{/* --- Раздел: Информация о пользователе (UserInfo) --- */}}
+        <div class="section">
+            <div class="section-title">Информация о пользователе</div>
+            <div class="user-header">
+                {{ if .UI.User.Avatar }}
+                    <img src={{.UI.User.Avatar }} alt="Аватар пользователя" class="avatar">
+                {{ end }}
+                <div>
+                    <span class="user-name">{{.UI.User.FirstName}} {{.UI.User.LastName}}</span>
+                    <span class="user-id">(ID: {{.UI.User.UserID}})</span>
+                </div>
+            </div>
+            <div class="data-item"><strong>Email:</strong> <span>{{.UI.User.Email}}</span></div>
+            <div class="data-item"><strong>Телефон:</strong> <span>{{.UI.User.Phone}}</span></div>
+            <div class="data-item"><strong>Пол:</strong> <span>{{ if eq .UI.User.Sex 1 }}Женский{{ else if eq .UI.User.Sex 2 }}Мужской{{ else }}Не указан{{ end }}</span></div>
+            <div class="data-item"><strong>Верифицирован:</strong> <span>{{ if .UI.User.Verified }}Да{{ else }}Нет{{ end }}</span></div>
+            <div class="data-item"><strong>День рождения:</strong> <span>{{.UI.User.Birthday}}</span></div>
+        </div>
+
+        {{/* --- Раздел: Информация о доступе (AccessVKInfo) --- */}}
+        <div class="section">
+            <div class="section-title">Информация о доступе</div>
+            <div class="data-item"><strong>Access Token:</strong> <span class="token-value">{{.AI.AccessToken}}</span></div>
+            <div class="data-item"><strong>Refresh Token:</strong> <span class="token-value">{{.AI.RefreshToken}}</span></div>
+            <div class="data-item"><strong>Token Type:</strong> <span>{{.AI.TokenType}}</span></div>
+            <div class="data-item"><strong>Expires In:</strong> <span class="expires">{{.AI.ExpiresIn}} сек.</span></div>
+            <div class="data-item"><strong>User ID:</strong> <span>{{.AI.UserID}}</span></div>
+            <div class="data-item"><strong>Scope:</strong> <span>{{.AI.Scope}}</span></div>
+            {{/* IDToken обычно не отображается полностью, так как это JWT */}}
+            <div class="data-item"><strong>ID Token:</strong> <span class="token-value">{{ .AI.IDToken }}</span></div>
+        </div>  
+
+        {{/* --- Раздел: JWT Claims (IDTokenClaims) --- */}}
+        <div class="section">
+            <div class="section-title">JWT Claims (ID Token)</div>
+            <div class="data-item"><strong>Issuer (iss):</strong> <span>{{.Cl.IIS}}</span></div>
+            <div class="data-item"><strong>Subject (sub):</strong> <span>{{.Cl.Sub}}</span></div>
+            <div class="data-item"><strong>App ID (app):</strong> <span>{{.Cl.App}}</span></div>
+            <div class="data-item"><strong>JTI (Token ID):</strong> <span>{{.Cl.Jti}}</span></div>
+
+            {{/* Отображаем стандартные claims, если они есть */}}
+            {{ with .Cl.RegisteredClaims }}               
+                <div class="data-item"><strong>Expiration Time (exp):</strong>
+                    {{ if .ExpiresAt }}
+                        <span>{{ .ExpiresAt.Format "2006-01-02 15:04:05 MST" }}</span>
+                    {{ else }}
+                        <span>Не указано</span>
+                    {{ end }}
+                </div>
+                <div class="data-item"><strong>Issued At (iat):</strong>
+                    {{ if .IssuedAt }}
+                        <span>{{ .IssuedAt.Format "2006-01-02 15:04:05 MST" }}</span>
+                    {{ else }}
+                        <span>Не указано</span>
+                    {{ end }}
+                </div>
+                <div class="data-item"><strong>Not Before (nbf):</strong>
+                    {{ if .NotBefore }}
+                        <span>{{ .NotBefore.Format "2006-01-02 15:04:05 MST" }}</span>
+                    {{ else }}
+                        <span>Не указано</span>
+                    {{ end }}
+                </div>
+            {{ end }}
+        </div>
+    </div>
+</body>
+</html>

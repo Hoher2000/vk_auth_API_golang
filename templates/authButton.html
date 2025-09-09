@@ -1,0 +1,30 @@
+<a href="{{.URL}}" class="vk-button">
+    ВОЙТИ ЧЕРЕЗ ВК
+</a>
+
+<style>
+.vk-button {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff; /* Белый текст */
+    background-color: #4a76a8; /* Синий цвет ВК */
+    border: none;
+    border-radius: 6px; /* Скругленные углы */
+    text-decoration: none; /* Убираем подчеркивание ссылки */
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Плавный переход */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Легкая тень */
+}
+
+.vk-button:hover {
+    background-color: #3b5a8c; /* Более темный синий при наведении */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Более выраженная тень при наведении */
+}
+
+.vk-button:active {
+    background-color: #2a406b; /* Еще более темный синий при нажатии */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Тень при нажатии */
+}
+</style>
