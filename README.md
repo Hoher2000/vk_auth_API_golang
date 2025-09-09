@@ -2,7 +2,7 @@
 
 [![Go version](https://img.shields.io/badge/go-%3E%3D1.20-blue.svg)](https://golang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Tags](https://img.shields.io/badge/tags-Authorization%2C%20OAUTH%20VK%20ID%2C%20Go%2C%20Golang-brightgreen)](https://github.com/yourusername/yourrepository#tags)
+[![Tags](https://img.shields.io/badge/tags-Authorization%2C%20OAUTH%20VK%20ID%2C%20Go%2C%20Golang-brightgreen)](https://github.com/Hoher2000/vk_auth_API_golang.git#tags)
 
 ---
 
@@ -23,7 +23,7 @@ VK ID также обеспечивает безопасную работу с �
 
 *   **Язык:** Golang (рекомендуется версия >= 1.20)
 *   **OAuth 2.0:** Реализация протокола OAuth 2.0 для взаимодействия с VK ID.
-*   **VK ID API:** Основано на официальной документации: [https://id.vk.com/about/business/go/docs/ru/vkid/latest/vk-id/api-description](https://id.vk.com/about/business/go/docs/ru/vkid/latest/vk-id/api-description)
+*   **VK ID API:** Основано на официальной документации: [https://id.vk.com/about/business/go/docs/ru/vkid/latest/vk-id/connection/api-description](https://id.vk.com/about/business/go/docs/ru/vkid/latest/vk-id/connection/api-description)
 *   **Библиотеки:**
     *   Используются как **нативные методы API VK ID**, так и популярная библиотека `golang.org/x/oauth2`.
 *   **JWT (JSON Web Tokens):** Приведен пример обработки и сериализации `id_token`, выдаваемого после успешной авторизации вместе с `Access` и `Refresh` токенами.
@@ -47,7 +47,7 @@ VK ID также обеспечивает безопасную работу с �
 *   Учетная запись разработчика VK для получения Client ID и Client Secret
 
 ### Получение Client ID и Client Secret:
-1.  Перейдите на [https://dev.vk.com/](https://dev.vk.com/)
+1.  Перейдите на [https://id.vk.com/about/business/go](https://id.vk.com/about/business/go)
 2.  Создайте новое приложение или используйте существующее.
 3.  В настройках приложения найдите **Client ID** (идентификатор приложения) и **Client Secret** (секретный ключ приложения).
 4.  Настройте **Redirect URI** (URI перенаправления) в вашем приложении VK ID на тот, который используется в вашем Go-приложении (например, `http://localhost:8080/callback` для локальной разработки).
