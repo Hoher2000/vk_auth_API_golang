@@ -32,7 +32,7 @@ func HashStringSHA256(input string) string {
 	return hex.EncodeToString(hasher.Sum(nil))
 }
 
-// наш хэндлер 
+// наш хэндлер
 type VKIDHandler struct {
 	conf oauth2.Config
 	PKCE *PKCEData
@@ -79,7 +79,7 @@ func (vk *VKIDHandler) generateState() string {
 func (vk *VKIDHandler) AuthPage(w http.ResponseWriter, r *http.Request) {
 	url := makeAuthURL(vk.PKCE.CodeChallenge, vk.generateState(), strings.Join(vk.conf.Scopes, " "))
 	//fmt.Println(url)
-	err := vk.tmpl.ExecuteTemplate(w, "authButton.html", struct {
+	err := vk.tmpl.ExecuteTemplate(w, "authButton.gohtml", struct {
 		URL string
 	}{
 		URL: url,
@@ -97,7 +97,7 @@ func (vk *VKIDHandler) AuthPage(w http.ResponseWriter, r *http.Request) {
 func (vk *VKIDHandler) AuthPageOA2(w http.ResponseWriter, r *http.Request) {
 	url := vk.conf.AuthCodeURL(vk.generateState(), oauth2.S256ChallengeOption(vk.PKCE.CodeVerifier))
 	//fmt.Println(url)
-	err := vk.tmpl.ExecuteTemplate(w, "authButton.html", struct {
+	err := vk.tmpl.ExecuteTemplate(w, "authButton.gohtml", struct {
 		URL string
 	}{
 		URL: url,
@@ -112,7 +112,7 @@ func (vk *VKIDHandler) AuthPageOA2(w http.ResponseWriter, r *http.Request) {
 // После авторизации пользователь перенаправялется на REDIRECT_URI.
 // Ответ от сервера авторизации содержит code & device_ID, необходимые для дальнейшего обмена их на токены.
 func (vk *VKIDHandler) AuthPageOneTap(w http.ResponseWriter, r *http.Request) {
-	err := vk.tmpl.ExecuteTemplate(w, "oneTap.html", struct {
+	err := vk.tmpl.ExecuteTemplate(w, "oneTap.gohtml", struct {
 		ClientID, RedirectURL, State, CodeChallenge, Scope string
 	}{
 		ClientID:      APP_ID,
@@ -191,7 +191,7 @@ func (vk *VKIDHandler) Callback(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "request error: %v", err)
 		return
 	}
-	err = vk.tmpl.ExecuteTemplate(w, "totalInfo.html", AccessAndUserInfo{
+	err = vk.tmpl.ExecuteTemplate(w, "totalInfo.gohtml", AccessAndUserInfo{
 		AI: accessData,
 		UI: userInfo,
 		Cl: cl,
@@ -244,6 +244,7 @@ func (vk *VKIDHandler) CallbackOA2(w http.ResponseWriter, r *http.Request) {
 		UserID:       int(uid),
 		IDToken:      idToken,
 		Scope:        scope,
+		ExpiresIn:    int(tok.ExpiresIn),
 	}
 
 	// получаем данные о JWT ("id_token")
@@ -283,7 +284,7 @@ func (vk *VKIDHandler) CallbackOA2(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusOK)
 		return
 	}
-	err = vk.tmpl.ExecuteTemplate(w, "totalInfo.html", AccessAndUserInfo{
+	err = vk.tmpl.ExecuteTemplate(w, "totalInfo.gohtml", AccessAndUserInfo{
 		AI: accessData,
 		UI: userInfo,
 		Cl: cl,

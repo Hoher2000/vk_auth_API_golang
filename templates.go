@@ -6,7 +6,7 @@ import (
 )
 
 func NewTemplates() *template.Template {
-	tmpl, err := template.ParseGlob("./templates/*.html")
+	tmpl, err := template.ParseGlob("./templates/*.gohtml")
 	if err != nil {
 		log.Fatalf("Ошибка при парсинге файлов - %v\n", err)
 	}
